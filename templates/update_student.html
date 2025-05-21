@@ -1,0 +1,93 @@
+{% extends 'admin_layout.html' %}
+
+{% block title %}Update Student Fee - Coaching Management System{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4 mb-4">
+        <i class="fas fa-edit me-2"></i>Update Student Fee
+    </h1>
+    
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-header bg-dark text-white">
+                    <i class="fas fa-money-bill-wave me-1"></i>
+                    Update Fee Information
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info mb-4">
+                        <i class="fas fa-info-circle me-2"></i>
+                        You are updating the fee for: <strong>{{ student.stu_name }}</strong> (ID: {{ student.sno }})
+                    </div>
+                    
+                    <form method="POST" action="{{ url_for('update_student', sno=student.sno) }}">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="currentFee" class="form-label">Current Fee Amount</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">₹</span>
+                                    <input type="text" class="form-control" id="currentFee" value="{{ student.fee }}" readonly disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="fee" class="form-label">New Fee Amount <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text">₹</span>
+                                    <input type="number" class="form-control" id="fee" name="fee" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <hr class="my-4">
+                        
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ url_for('student_list') }}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left me-1"></i> Back to List
+                            </a>
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fas fa-save me-1"></i> Update Fee
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card mb-4">
+                <div class="card-header bg-dark text-white">
+                    <i class="fas fa-user me-1"></i>
+                    Student Details
+                </div>
+                <div class="card-body">
+                    <p><strong>Student ID:</strong> {{ student.sno }}</p>
+                    <p><strong>Name:</strong> {{ student.stu_name }}</p>
+                    <p><strong>Current Fee:</strong> ₹{{ student.fee }}</p>
+                    <p><strong>Date of Joining:</strong> {{ student.doj.strftime('%d %b, %Y') }}</p>
+                    
+                    <hr>
+                    
+                    <div class="d-grid">
+                        <a href="{{ url_for('delete_student', sno=student.sno) }}" class="btn btn-danger">
+                            <i class="fas fa-trash-alt me-1"></i> Delete Student
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

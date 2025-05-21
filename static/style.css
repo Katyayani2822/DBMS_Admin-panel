@@ -1,0 +1,64 @@
+/* Custom styles for Coaching Management System */
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer {
+    margin-top: auto;
+}
+
+.card {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    border-radius: 8px 8px 0 0;
+}
+
+.table th {
+    background-color: var(--bs-dark);
+    color: var(--bs-light);
+}
+
+.btn {
+    border-radius: 5px;
+}
+
+.alert-container {
+    position: relative;
+    min-height: 60px;
+}
+
+#statusAlert {
+    transition: opacity 0.5s ease-in-out;
+}
+
+.student-action-btn {
+    padding: 0.25rem 0.5rem;
+    margin-right: 0.25rem;
+}
+
+/* Add animation for alerts */
+@keyframes slideDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.alert:not(.d-none) {
+    animation: slideDown 0.3s forwards;
+}

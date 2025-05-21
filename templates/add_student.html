@@ -1,0 +1,97 @@
+{% extends 'admin_layout.html' %}
+
+{% block title %}Add Student - Coaching Management System{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4 mb-4">
+        <i class="fas fa-user-plus me-2"></i>Add New Student
+    </h1>
+    
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-header bg-dark text-white">
+                    <i class="fas fa-edit me-1"></i>
+                    Student Information
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('add_student_form') }}">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="sno" class="form-label">Student ID <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="sno" name="sno" required>
+                                <small class="text-muted">Enter a unique numeric ID for the student</small>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="stu_name" class="form-label">Student Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="stu_name" name="stu_name" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="fee" class="form-label">Fee Amount <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text">₹</span>
+                                    <input type="number" class="form-control" id="fee" name="fee" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="doj" class="form-label">Date of Joining <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" id="doj" name="doj" required>
+                            </div>
+                        </div>
+                        
+                        <hr class="my-4">
+                        
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ url_for('student_list') }}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left me-1"></i> Back to List
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-1"></i> Add Student
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card mb-4">
+                <div class="card-header bg-dark text-white">
+                    <i class="fas fa-info-circle me-1"></i>
+                    Instructions
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Adding a New Student</h5>
+                    <p>Please fill in all the required fields marked with <span class="text-danger">*</span></p>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item"><strong>Student ID:</strong> A unique numeric identifier</li>
+                        <li class="list-group-item"><strong>Student Name:</strong> Full name of the student</li>
+                        <li class="list-group-item"><strong>Fee Amount:</strong> The fee amount in Rupees</li>
+                        <li class="list-group-item"><strong>Date of Joining:</strong> When the student joined</li>
+                    </ul>
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <strong>Note:</strong> Student ID must be unique. Records with duplicate IDs will be rejected.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

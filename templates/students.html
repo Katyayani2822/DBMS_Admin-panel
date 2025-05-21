@@ -1,0 +1,80 @@
+{% extends 'admin_layout.html' %}
+
+{% block title %}All Students - Coaching Management System{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4 mb-4">
+        <i class="fas fa-users me-2"></i>All Students
+    </h1>
+    
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <div>
+                <i class="fas fa-table me-1"></i>
+                Student Records
+            </div>
+            <a href="{{ url_for('add_student_form') }}" class="btn btn-primary btn-sm">
+                <i class="fas fa-plus-circle me-1"></i> Add New Student
+            </a>
+        </div>
+        <div class="card-body">
+            {% if students %}
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Fee (Rs.)</th>
+                                <th>Date of Joining</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for student in students %}
+                                <tr>
+                                    <td>{{ student.sno }}</td>
+                                    <td>{{ student.stu_name }}</td>
+                                    <td>{{ student.fee }}</td>
+                                    <td>{{ student.doj.strftime('%d %b, %Y') }}</td>
+                                    <td class="action-buttons">
+                                        <a href="{{ url_for('update_student', sno=student.sno) }}" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" title="Update Fee">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="{{ url_for('delete_student', sno=student.sno) }}" class="btn btn-danger btn-sm" data-bs-toggle="tooltip" title="Delete Student">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    No student records found. Please add students to view them here.
+                </div>
+                <div class="text-center mt-4">
+                    <a href="{{ url_for('add_student_form') }}" class="btn btn-primary">
+                        <i class="fas fa-plus-circle me-1"></i> Add First Student
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

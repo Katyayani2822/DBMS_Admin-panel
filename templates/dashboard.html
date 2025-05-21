@@ -1,0 +1,129 @@
+{% extends 'admin_layout.html' %}
+
+{% block title %}Dashboard - Coaching Management System{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4 mb-4">
+        <i class="fas fa-tachometer-alt me-2"></i>Admin Dashboard
+    </h1>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <!-- Dashboard Overview -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-primary text-white h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="me-3">
+                            <div class="text-white-75 small">Total Students</div>
+                            <div class="text-lg fw-bold">{{ student_count }}</div>
+                        </div>
+                        <i class="fas fa-users fa-2x text-white-50"></i>
+                    </div>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="{{ url_for('student_list') }}">View Details</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quick Actions -->
+    <div class="row mb-4">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <i class="fas fa-rocket me-1"></i>
+                    Quick Actions
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <a href="{{ url_for('add_student_form') }}" class="btn btn-primary d-block p-4 h-100">
+                                <i class="fas fa-user-plus fa-2x mb-2"></i><br>
+                                Add New Student
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a href="{{ url_for('student_list') }}" class="btn btn-info d-block p-4 h-100">
+                                <i class="fas fa-list-alt fa-2x mb-2"></i><br>
+                                View All Students
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a href="{{ url_for('search_student') }}" class="btn btn-warning d-block p-4 h-100">
+                                <i class="fas fa-search fa-2x mb-2"></i><br>
+                                Search Student
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a href="{{ url_for('logout') }}" class="btn btn-danger d-block p-4 h-100">
+                                <i class="fas fa-sign-out-alt fa-2x mb-2"></i><br>
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- About System -->
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-header bg-dark text-white">
+                    <i class="fas fa-info-circle me-1"></i>
+                    About Coaching Management System
+                </div>
+                <div class="card-body">
+                    <p>Welcome to the Coaching Management System! This system allows you to:</p>
+                    <ul>
+                        <li>Add new students with their details</li>
+                        <li>Update student fee information</li>
+                        <li>Search for specific students</li>
+                        <li>Delete student records as needed</li>
+                        <li>View all registered students</li>
+                    </ul>
+                    <p>Use the quick action buttons above to navigate through the system efficiently.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-header bg-dark text-white">
+                    <i class="fas fa-question-circle me-1"></i>
+                    Help & Support
+                </div>
+                <div class="card-body">
+                    <h5 class="mb-3">Need Help?</h5>
+                    <p>If you need any assistance using the Coaching Management System, here are some quick tips:</p>
+                    <ul>
+                        <li>Use the navigation menu on the left to access different sections</li>
+                        <li>To add a student, fill in all the required fields in the Add Student form</li>
+                        <li>Search for students by their ID number</li>
+                        <li>The dashboard provides an overview of the system</li>
+                    </ul>
+                    <div class="alert alert-info">
+                        <i class="fas fa-lightbulb me-2"></i>
+                        <strong>Tip:</strong> Remember to log out when you're done using the system for security purposes.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
